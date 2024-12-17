@@ -18,7 +18,6 @@ export default function TrangChuScreen({ navigation }) {
         onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
         currentImageEmitter={index => console.warn(`current pos is: ${index}`)}
       />
-      
       <HomePageMovieSection sectionName={'Đang chiếu'} navigation={navigation}/>
       <HomePageMovieSection sectionName={'Sắp chiếu'} />
       </ScrollView>

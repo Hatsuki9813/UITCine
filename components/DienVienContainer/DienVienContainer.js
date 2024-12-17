@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
-import { DienVien } from '../Data/Data'; // Nhớ import đúng
-
+import { DienVien } from '../Data/Data';
 export default function DienVienContainer() {
   return (
     <View style={styles.container}>
