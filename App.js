@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import Navigation from './pages/navigation/Navigation';
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Navigation />
-      <StatusBar />
-      
-    </SafeAreaView>
-  );
-}
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    flex: 1,
-    marginTop: 40
-    
-  },
-});
+import { NavigationContainer } from "@react-navigation/native";
 
+import loadFonts from "./themes/fonts";
+
+import AuthStack from "./controllers/AuthStack";
+import { AuthProvider } from "./contexts/AuthContext";
+
+import { startDatabase } from "./database/database";
+
+export default function App() {
+    loadFonts();
+    startDatabase();
+
+    return (
+        <AuthProvider>
+            <NavigationContainer>
+                <AuthStack />
+            </NavigationContainer>
+        </AuthProvider>
+    );
+}
