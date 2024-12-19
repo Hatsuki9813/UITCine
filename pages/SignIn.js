@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
+import { SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Dimensions  } from "react-native";
 
 import colors from "../themes/colors";
 
@@ -26,21 +26,22 @@ export default function SignIn({ navigation }) {
     };
 
     const SignIn = async () => {
-        // const { username, password } = formData;
-        // const result = await signIn({ username, password });
-        // if (result) {
+        const { username, password } = formData;
+        const result = await signIn({ username, password });
+        if (result) {
         navigation.replace("MainStack");
-        login(/*username*/);
-        // } else Alert.alert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
+        login(username);
+        } else Alert.alert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
     };
 
     const passwordInputRef = useRef();
 
     const logo = require("../assets/uit-cine-logo.png");
+    const screenHeight = Dimensions.get("window").height;
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <SafeAreaView style={styles.background}>
+            <SafeAreaView style={[styles.background, { minHeight: screenHeight }]}>
                 <StatusBar barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={styles.row1}>
@@ -119,8 +120,8 @@ const getStyles = () =>
         },
         logoName: {
             color: colors.pink,
-            fontFamily: "BVP_Bold",
             fontSize: 32,
+            fontWeight:"bold"
         },
         forgotPassword: {
             flexDirection: "row",
@@ -129,12 +130,10 @@ const getStyles = () =>
             marginTop: 10,
         },
         text: {
-            fontFamily: "BVP_SemiBold",
             color: "white",
             fontSize: 16,
         },
         buttonText: {
-            fontFamily: "BVP_SemiBold",
             color: colors.pink,
             fontSize: 16,
         },

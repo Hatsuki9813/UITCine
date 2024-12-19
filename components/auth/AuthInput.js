@@ -82,7 +82,6 @@ const getStyles = (isEmptyInput, isFocused) =>
             zIndex: 0,
         },
         titleText: {
-            fontFamily: "BVP_Regular",
             color: colors.lightGray,
             fontSize: !isFocused && isEmptyInput ? 20 : 16,
             left: 12,
@@ -91,7 +90,6 @@ const getStyles = (isEmptyInput, isFocused) =>
         AuthInput: {
             position: "absolute",
             bottom: 4,
-            fontFamily: "BVP_Regular",
             fontSize: 20,
             zIndex: 1,
             color: "white",

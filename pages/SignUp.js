@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Alert, SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Alert, SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions, ScrollView } from "react-native";
 
 import colors from "../themes/colors";
 
@@ -36,11 +36,13 @@ export default function SignUp({ navigation }) {
     };
 
     const logo = require("../assets/uit-cine-logo.png");
+    const screenHeight = Dimensions.get("window").height;
 
     return (
+        <ScrollView> 
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <SafeAreaView style={styles.background}>
-                <StatusBar barStyle={"light-content"} />
+            <SafeAreaView style={[styles.background, { minHeight: screenHeight }]}>
+            <StatusBar barStyle={"light-content"} />
                 <View style={styles.container}>
                     <View style={styles.row1}>
                         <Image source={logo} style={styles.logo} />
@@ -74,6 +76,7 @@ export default function SignUp({ navigation }) {
                 </View>
             </SafeAreaView>
         </TouchableWithoutFeedback>
+        </ScrollView>
     );
 }
 
@@ -110,16 +113,13 @@ const getStyles = () =>
         },
         logoName: {
             color: colors.pink,
-            fontFamily: "BVP_Bold",
             fontSize: 32,
         },
         text: {
-            fontFamily: "BVP_SemiBold",
             color: "white",
             fontSize: 16,
         },
         buttonText: {
-            fontFamily: "BVP_SemiBold",
             color: colors.pink,
             fontSize: 16,
         },

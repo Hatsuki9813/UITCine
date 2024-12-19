@@ -334,7 +334,6 @@ export const films = [
         trailer: "https://www.youtube.com/watch?v=cBG30KsGRH8",
         status_id: 0,
         banner: "https://cdn.galaxycine.vn/media/2024/12/4/moana-2-750_1733308287728.jpg"
-
     },
     {
         id: 20,
