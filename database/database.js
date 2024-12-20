@@ -51,7 +51,8 @@ const createTables = async () => {
         format TEXT,
         poster TEXT,
         trailer TEXT,
-        status_id INTEGER
+        status_id INTEGER,
+        banner TEXT
         )`);
     await db.runAsync(`CREATE TABLE IF NOT EXISTS provinces (
         id INTEGER PRIMARY KEY,
@@ -129,11 +130,12 @@ const initData = async () => {
             film.poster,
             film.trailer,
             film.status_id,
+            film.banner,
         ];
         const query = `
         INSERT INTO films 
-        (id, name, description, release_date, duration, age_rating, genres, directors, actors, lang, format, poster, trailer, status_id) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (id, name, description, release_date, duration, age_rating, genres, directors, actors, lang, format, poster, trailer, status_id, banner) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
         await db.runAsync(query, params);
     }
@@ -453,8 +455,41 @@ export const changeUserInfo = async (data) => {
         const params = [data.value, data.username];
         await db.runAsync(query, params);
         await db.runAsync("COMMIT");
+        return 1;
     } catch (error) {
         await db.runAsync("ROLLBACK");
+        console.log(error);
+        return 0;
+    }
+};
+
+export const getCinemaShowtimes = async (cinema_id) => {
+    try {
+        const query = `
+            SELECT
+            films.id AS film_id,
+            films.name AS film_name,
+            films.format AS film_format,
+            films.poster AS film_poster,
+            films.duration AS film_duration,
+            films.age_rating AS film_ageRating,
+            theaters.id AS theater_id,
+            theaters.name AS theater_name,
+            theaters.format AS theater_format,
+            theaters.row AS theater_row,
+            theaters.col AS theater_col,
+            showtime_details.id AS showtime_id, 
+            showtime_details.showtime,
+            showtime_details.format
+            FROM showtime_details
+            INNER JOIN theaters ON showtime_details.theater_id = theaters.id
+            INNER JOIN films ON showtime_details.film_id = films.id
+            WHERE showtime_details.cinema_id = ?
+        `;
+        const params = [cinema_id];
+        const result = await db.getAllAsync(query, params);
+        return result;
+    } catch (error) {
         console.log(error);
     }
 };

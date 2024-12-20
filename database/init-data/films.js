@@ -14,6 +14,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-bocchi-p1.jpg",
         trailer: "https://www.youtube.com/watch?v=JfgIbMV7q0Y",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/7/bocchi-the-rock-recap-part-1-2_1728269976716.jpg",
     },
     {
         id: 2,
@@ -30,6 +31,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-bocchi-p2.jpg",
         trailer: "https://www.youtube.com/watch?v=as4D2VOj_BI",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/15/bocchi-the-rock-recap-part-2-3_1729002382867.jpg",
     },
     {
         id: 3,
@@ -46,6 +48,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/3/image/c5f0a1eff4c394a251036189ccddaacd/a/m/amazon-main-poster-printing.jpg",
         trailer: "https://www.youtube.com/watch?v=jxcKe1I4HtQ",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/12/cuoi-xuyen-bien-gioi-750_1731395846509.jpg",
     },
     {
         id: 4,
@@ -62,6 +65,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/3/image/c5f0a1eff4c394a251036189ccddaacd/7/0/700x1000-gladiator.jpg",
         trailer: "https://www.youtube.com/watch?v=R4AFSgUGEEs",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/6/gladiator-750_1730878962007.jpg",
     },
     {
         id: 5,
@@ -78,6 +82,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/3/image/1800x/71252117777b696995f01934522c402d/r/s/rsz_redone_insta_vert_main_1638x2048_intl.jpg",
         trailer: "https://www.youtube.com/watch?v=2T_mKyH17mY",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/8/red-one-750_1731035309585.jpg",
     },
     {
         id: 6,
@@ -94,6 +99,7 @@ export const films = [
         poster: "https://www.elle.vn/app/uploads/2024/10/17/613971/Teaser-Poster-phim-doi-ban-hoc-yeu-scaled.jpg",
         trailer: "https://www.youtube.com/watch?v=EIARKqcXILM",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/1/doi-ban-hoc-yeu-750_1730430929239.jpg",
     },
     {
         id: 7,
@@ -110,6 +116,7 @@ export const films = [
         poster: "https://cdn.tuoitre.vn/471584752817336320/2024/4/16/first-look-poster-1713248286753396686888.jpg",
         trailer: "https://www.youtube.com/watch?v=qaeHlk0OXec",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/21/ngay-xua-co-1-chuyen-tinh-750_1729502959990.jpg",
     },
     {
         id: 8,
@@ -126,6 +133,7 @@ export const films = [
         poster: "https://m.media-amazon.com/images/M/MV5BNmEyZjI0M2MtNGFkOC00YTRlLWI0MGQtYTgyODY2MGRhMjc4XkEyXkFqcGc@._V1_.jpg",
         trailer: "https://www.youtube.com/watch?v=5SUXmUFwnuY",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/n/a/name.jpg",
     },
     {
         id: 9,
@@ -142,6 +150,7 @@ export const films = [
         poster: "https://upload.wikimedia.org/wikipedia/vi/c/c6/Koe_no_Katachi_Film_Poster.jpg",
         trailer: "https://www.youtube.com/watch?v=FGcKqIQjRSY",
         status_id: 0,
+        banner: "https://cdn.moveek.com/storage/media/cache/large/d7bdc5ad47d8fcb92eb99c2ecb6be0662a495dd1.jpg",
     },
     {
         id: 10,
@@ -158,6 +167,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/a/p/approved_main_art.jpg",
         trailer: "https://www.youtube.com/watch?v=Nf3bt111lVo",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/2/6/spyxfamily-750_1707204189937.jpg",
     },
     {
         id: 11,
@@ -174,6 +184,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/2/4/240531_-_dc27_-_main_poster_1_.jpg",
         trailer: "https://www.youtube.com/watch?v=C4pG3GbhQZw",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/8/2/detective-conan-the-million-dollar-pentagram-1_1722570550126.jpg",
     },
     {
         id: 12,
@@ -190,6 +201,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/d/m/dm4_posterminion_700x1000.jpg",
         trailer: "https://www.youtube.com/watch?v=8nBoEAkM0Rc",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/6/20/despicable-me-4-750_1718865150064.jpg",
     },
     {
         id: 13,
@@ -206,6 +218,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/r/s/rsz_vnm3_intl_online_1080x1350_tsr_01.jpg",
         trailer: "https://www.youtube.com/watch?v=id1rfr_KZWg",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/16/venom-sneak-750_1729048420375.jpg",
     },
     {
         id: 14,
@@ -222,6 +235,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/w/r/wrb_intl1sht_headtouch4_rgb_700x1000.jpg",
         trailer: "https://www.youtube.com/watch?v=2l8_FNIBWLM",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/2/the-wild-robot-750_1727843732360.jpg",
     },
     {
         id: 15,
@@ -238,6 +252,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-academia.jpg",
         trailer: "https://www.youtube.com/watch?v=O_JcwpDergM",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/4/my-hero-academia-youre-next-750_1730694516293.jpg",
     },
     {
         id: 16,
@@ -254,6 +269,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/g/cgv_457x590.jpg",
         trailer: "https://www.youtube.com/watch?v=QJ8E9R70csY",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/18/co-dau-hao-mon-750_1729221053521.jpg",
     },
     {
         id: 17,
@@ -270,6 +286,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/w/k/wkd_forestduo_470x700.jpg",
         trailer: "https://www.youtube.com/watch?v=IILf3ZEBnmM",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/10/23/wicked-750_1729656608815.jpg",
     },
     {
         id: 18,
@@ -286,6 +303,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/p/o/poster_main_sac_mau_cua_cam_xuc_1_.jpg",
         trailer: "https://www.youtube.com/watch?v=ammgfic1zwA",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/6/sac-mau-cua-cam-xuc-750_1730877614809.jpg",
     },
     {
         id: 19,
@@ -303,6 +321,7 @@ export const films = [
         header_poster: "https://cdn.galaxycine.vn/media/2024/12/4/moana-2-750_1733308287728.jpg",
         trailer: "https://www.youtube.com/watch?v=cBG30KsGRH8",
         status_id: 0,
+        banner: "https://cdn.galaxycine.vn/media/2024/12/4/moana-2-750_1733308287728.jpg",
     },
     {
         id: 20,
@@ -319,6 +338,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/s/t/sth3_poster_470x700.jpg",
         trailer: "https://www.youtube.com/watch?v=A6SxA_JIE68",
         status_id: 1,
+        banner: "https://cdn.galaxycine.vn/media/2024/12/11/sonic-3-7500_1733889870363.jpg",
     },
     {
         id: 21,
@@ -335,6 +355,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/d/_/d_n_k_nh_v_n_hoa_1_.jpg",
         trailer: "https://www.youtube.com/watch?v=6z1BoUbB-fs",
         status_id: 1,
+        banner: "https://cdn.galaxycine.vn/media/2024/11/28/kinh-van-hoa-750_1732785354205.jpg",
     },
     {
         id: 22,
@@ -351,6 +372,7 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/v/n/vn_lotrwr_vert_main_2764x4096_intl_1_.jpg",
         trailer: "https://www.youtube.com/watch?v=_ra5S4RDcu8",
         status_id: 1,
+        banner: "https://cdn.galaxycine.vn/media/2024/8/26/the-lord-of-the-rings-the-war-of-the-rohirrim-750_1724658681013.jpg",
     },
     {
         id: 23,
@@ -367,5 +389,6 @@ export const films = [
         poster: "https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/c/a/captain_america_teaserdebut_1sht_vie.jpg",
         trailer: "https://www.youtube.com/watch?v=T-aJxCFUN_8",
         status_id: 1,
+        banner: "https://cdn.galaxycine.vn/media/2024/7/15/captain-america-brave-new-world-750_1721030812687.jpg",
     },
 ];

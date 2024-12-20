@@ -26,12 +26,7 @@ export default function FilmDetails({ route }) {
     return (
         <ScrollView style={styles.container}>
             <View>
-                <Image
-                    style={styles.headerImage}
-                    source={{
-                        uri: "https://cdn.galaxycine.vn/media/2024/12/4/moana-2-750_1733308287728.jpg",
-                    }}
-                />
+                <Image style={styles.headerImage} source={{ uri: film.banner }} />
                 <View style={styles.overlay}></View>
             </View>
             <View style={styles.filmDetails}>

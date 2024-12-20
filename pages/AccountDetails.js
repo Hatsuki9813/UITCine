@@ -21,24 +21,30 @@ export default function AccountDetails({ route, navigation }) {
                     <View>
                         <Text style={styles.title}>Thông tin tài khoản</Text>
                         <View style={styles.partContainer}>
-                            <AccountRowButton title="Tên đăng nhập" value={userData.username} denyChange={true} />
-                            <AccountRowButton navigation={navigation} title="Tên hiển thị" value={userData.display_name} />
-                            <AccountRowButton navigation={navigation} title="Email" value={userData.email} />
-                            <AccountRowButton navigation={navigation} title="Số điện thoại" value={userData.phone_number} />
-                            <AccountRowButton navigation={navigation} title="Ngày sinh" value={userData.dob ? formatDMY(userData.dob) : ""} lastButton={true} />
+                            <AccountRowButton title="Tên đăng nhập" value={userData.username} option={{ field: "userInfo", denyChange: true }} />
+                            <AccountRowButton navigation={navigation} title="Tên hiển thị" value={userData.display_name} option={{ field: "userInfo", denyChange: false }} />
+                            <AccountRowButton navigation={navigation} title="Email" value={userData.email} option={{ field: "userInfo", denyChange: false }} />
+                            <AccountRowButton navigation={navigation} title="Số điện thoại" value={userData.phone_number} option={{ field: "userInfo", denyChange: false }} />
+                            <AccountRowButton
+                                navigation={navigation}
+                                title="Ngày sinh"
+                                value={userData.dob ? formatDMY(userData.dob) : ""}
+                                lastButton={true}
+                                option={{ field: "userInfo", denyChange: false }}
+                            />
                         </View>
                     </View>
                     <View>
                         <Text style={styles.title}>Bảo mật</Text>
                         <View style={styles.partContainer}>
-                            <AccountRowButton title="Đổi mật khẩu" />
-                            <AccountRowButton title="Đăng nhập bằng sinh trắc học" lastButton={true} />
+                            <AccountRowButton navigation={navigation} title="Đổi mật khẩu" option={{ field: "security", action: "changePw", denyChange: false }} />
+                            <AccountRowButton title="Đăng nhập bằng sinh trắc học" lastButton={true} option={{ field: "security", action: "", denyChange: false }} />
                         </View>
                     </View>
                     <View>
                         <Text style={styles.title}>Quản lý tài khoản</Text>
                         <View style={styles.partContainer}>
-                            <AccountRowButton title="Xoá tài khoản" danger={true} lastButton={true} />
+                            <AccountRowButton title="Xoá tài khoản" danger={true} lastButton={true} option={{ field: "deleteAccount", action: "", denyChange: true }} />
                         </View>
                     </View>
                 </View>

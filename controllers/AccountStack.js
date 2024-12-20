@@ -5,6 +5,7 @@ import TicketDetails from "../pages/TicketDetails";
 import TicketsTop from "../controllers/TicketsTop";
 import AccountDetails from "../pages/AccountDetails";
 import AccountDetailChange from "../pages/AccountDetailChange";
+import ChangePw from "../pages/ChangePw";
 
 export default function AccountStack({ navigation }) {
     const Stack = createStackNavigator();
@@ -16,6 +17,7 @@ export default function AccountStack({ navigation }) {
             <Stack.Screen name="TicketDetails" component={TicketDetails} options={{ headerShown: false }} />
             <Stack.Screen name="AccountDetails" component={AccountDetails} options={{ headerShown: false }} />
             <Stack.Screen name="AccountDetailChange" component={AccountDetailChange} options={{ headerShown: false }} />
+            <Stack.Screen name="ChangePw" component={ChangePw} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }

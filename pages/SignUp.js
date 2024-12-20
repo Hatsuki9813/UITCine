@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Alert, SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { Alert, SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Dimensions, ScrollView } from "react-native";
 
 import colors from "../themes/colors";
 
@@ -23,6 +23,8 @@ export default function SignUp({ navigation }) {
         return;
     };
 
+    const screenHeight = Dimensions.get("window").height;
+
     const SignUp = async () => {
         const { username, email, password, confirmPassword } = formData;
         if (password !== confirmPassword) {
@@ -38,42 +40,50 @@ export default function SignUp({ navigation }) {
     const logo = require("../assets/uit-cine-logo.png");
 
     return (
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <SafeAreaView style={styles.background}>
-                <StatusBar barStyle={"light-content"} />
-                <View style={styles.container}>
-                    <View style={styles.row1}>
-                        <Image source={logo} style={styles.logo} />
-                        <Text style={styles.logoName}>UITCine</Text>
+        <ScrollView>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <SafeAreaView style={[styles.background, { minHeight: screenHeight }]}>
+                    <StatusBar barStyle={"light-content"} />
+                    <View style={styles.container}>
+                        <View style={styles.row1}>
+                            <Image source={logo} style={styles.logo} />
+                            <Text style={styles.logoName}>UITCine</Text>
+                        </View>
+                        <View style={styles.row2}>
+                            <AuthInput title={"Tài khoản"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
+                            <AuthInput
+                                title={"Email"}
+                                autoCapitalize={"none"}
+                                iconName={"x"}
+                                keyboardType={"email-address"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, email: text }))}
+                            />
+                            <AuthInput
+                                title={"Mật khẩu"}
+                                autoCapitalize={"none"}
+                                secureTextEntry={true}
+                                iconName={"eye-off"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, password: text }))}
+                            />
+                            <AuthInput
+                                title={"Xác nhận mật khẩu"}
+                                autoCapitalize={"none"}
+                                secureTextEntry={true}
+                                iconName={"eye-off"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, confirmPassword: text }))}
+                            />
+                            <AuthButton title={"Đăng ký"} onPress={SignUp} />
+                        </View>
+                        <View style={styles.row3}>
+                            <Text style={styles.text}>Đã có tài khoản? </Text>
+                            <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }} onPress={goToSignIn}>
+                                <Text style={styles.buttonText}>Đăng nhập ngay</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.row2}>
-                        <AuthInput title={"Tài khoản"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
-                        <AuthInput title={"Email"} autoCapitalize={"none"} iconName={"x"} keyboardType={"email-address"} onChangeText={(text) => setFormData((prev) => ({ ...prev, email: text }))} />
-                        <AuthInput
-                            title={"Mật khẩu"}
-                            autoCapitalize={"none"}
-                            secureTextEntry={true}
-                            iconName={"eye-off"}
-                            onChangeText={(text) => setFormData((prev) => ({ ...prev, password: text }))}
-                        />
-                        <AuthInput
-                            title={"Xác nhận mật khẩu"}
-                            autoCapitalize={"none"}
-                            secureTextEntry={true}
-                            iconName={"eye-off"}
-                            onChangeText={(text) => setFormData((prev) => ({ ...prev, confirmPassword: text }))}
-                        />
-                        <AuthButton title={"Đăng ký"} onPress={SignUp} />
-                    </View>
-                    <View style={styles.row3}>
-                        <Text style={styles.text}>Đã có tài khoản? </Text>
-                        <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }} onPress={goToSignIn}>
-                            <Text style={styles.buttonText}>Đăng nhập ngay</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </SafeAreaView>
-        </TouchableWithoutFeedback>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+        </ScrollView>
     );
 }
 
