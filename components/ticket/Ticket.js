@@ -25,7 +25,7 @@ export default function Ticket({ showtime_id }) {
     const [posterContainerWidth, setPosterContainerWidth] = useState(0);
 
     const styles = getStyles(posterContainerWidth);
-
+    console.log("data showtime: "+data.showtime)
     return (
         <View style={styles.container}>
             <View

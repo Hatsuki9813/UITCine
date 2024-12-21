@@ -1,6 +1,5 @@
 import { SafeAreaView, ScrollView, View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, Alert } from "react-native";
 import { useState, useEffect, useRef } from "react";
-
 import Ticket from "../components/ticket/Ticket";
 import PaymentMethod from "../components/ticket/PaymentMethod";
 
@@ -9,7 +8,7 @@ import Header from "../components/Header";
 
 import { getPromotionCode, addOrder } from "../database/database";
 import { useAuth } from "../contexts/AuthContext";
-
+import { getTodayDate } from "../modules/getTodayDate";
 export default function Payment({ route, navigation }) {
     const { seats, data, price, ticketName } = route.params;
     const { username } = useAuth();
@@ -54,12 +53,14 @@ export default function Payment({ route, navigation }) {
         console.log("Thanh toán đã được thực hiện");
         Alert.alert("Thông báo", "Thanh toán thành công.\nXem vé của bạn trong mục vé đã đặt.");
         const reqData = {
-            id: Date.now(),
+           // id: Date.now(),
             price: totalPrice,
             showtime_id: data,
             username: username,
             seats: seats,
+            day: getTodayDate()
         };
+        console.log("booked ticket: "+JSON.stringify(reqData))
         await addOrder(reqData);
 
         navigation.navigate("MainBottom");
@@ -116,6 +117,10 @@ export default function Payment({ route, navigation }) {
             </Text>
         );
     };
+    console.log("seat"+seats)
+    console.log("seat"+data)
+    console.log("seat"+price)
+    console.log("seat"+ticketName)
 
     const styles = getStyles();
     return (

@@ -11,17 +11,17 @@ export default function ShowingList({ route, navigation }) {
     const code = route.name === "Showing" ? 0 : 1;
 
     useEffect(() => {
-        // Hàm lấy dữ liệu bất đồng bộ
+        // Hàm  lấy dữ liệu bất đồng bộ
         const fetchData = async () => {
             try {
                 const films = await getFilmsByStatus(code); // Chờ dữ liệu trả về
+                console.log("film fetched: "+films)
                 setData(films); // Lưu dữ liệu vào state
             } catch (error) {
                 console.error("Error fetching films:", error); // Ghi log nếu xảy ra lỗi
             } finally {
             }
         };
-
         fetchData();
     }, [code]); // Chỉ gọi lại nếu `code` thay đổi
 

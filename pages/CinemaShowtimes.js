@@ -28,7 +28,7 @@ export default function CinemaShowtimes({ route, navigation }) {
     const fetchShowtimes = async () => {
         const showtimes = await getCinemaShowtimes(cinemaId);
         setShowtimeValue(showtimes);
-
+        console.log("cinemaShowtime value in CinemaShowTimes"+JSON.stringify(showtimes))
         const uniqueDates = Array.from(
             new Set(
                 showtimes.map((item) => {
