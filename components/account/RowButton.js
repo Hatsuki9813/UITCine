@@ -3,15 +3,11 @@ import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../../themes/colors";
 
-import { getCinemaShowtimes, getShowtimeBase } from "../../database/database";
-
 export default function RowButton({ navigation, buttonText, iconName, pageName, lastButton, userData }) {
     const styles = getStyles(lastButton);
 
     const goToPage = () => {
-        if (pageName == "Tickets" || pageName == "AccountDetails") navigation.navigate(pageName, { userData });
-        else if (pageName == "Settings") getCinemaShowtimes(21);
-        else if (pageName == "Contacts") Linking.openURL("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        navigation.navigate(pageName, { userData: userData });
     };
 
     return (

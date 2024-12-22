@@ -1,5 +1,6 @@
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 import Ticket from "../components/ticket/Ticket";
 
@@ -11,21 +12,23 @@ export default function UsedTickets({ navigation }) {
     const { username } = useAuth();
     const [groupedTickets, setGroupedTickets] = useState({});
 
-    useEffect(() => {
-        const fetchTickets = async () => {
-            try {
-                const fetchedTickets = await getUsersTicket(username, 1);
+    const fetchTickets = async () => {
+        try {
+            const fetchedTickets = await getUsersTicket(username, 1);
 
-                // Group tickets by month and sort groups by date
-                const grouped = groupTicketsByMonth(fetchedTickets); // Dùng fetchedTickets thay vì tickets
-                setGroupedTickets(grouped);
-            } catch (error) {
-                console.error("Error fetching tickets: ", error);
-            }
-        };
+            // Group tickets by month and sort groups by date
+            const grouped = groupTicketsByMonth(fetchedTickets);
+            setGroupedTickets(grouped);
+        } catch (error) {
+            console.error("Error fetching tickets: ", error);
+        }
+    };
 
-        fetchTickets();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            fetchTickets();
+        }, []) // Dependency array là [] để chỉ chạy khi trang được focus
+    );
 
     const groupTicketsByMonth = (tickets) => {
         const grouped = tickets.reduce((acc, ticket) => {

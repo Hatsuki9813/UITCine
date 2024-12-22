@@ -1,5 +1,5 @@
 import { StatusBar, ScrollView, View, StyleSheet, Image, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 import RowButton from "../components/account/RowButton";
 import SignOutButton from "../components/account/SignOutButton";
@@ -12,7 +12,6 @@ import { getUserInfo } from "../database/database";
 import colors from "../themes/colors";
 
 import { useFocusEffect } from "@react-navigation/native";
-import { use } from "react";
 
 export default function Account({ navigation }) {
     const { username } = useAuth();
@@ -57,8 +56,8 @@ export default function Account({ navigation }) {
                         <RowButton navigation={navigation} buttonText={"Vé của tôi"} iconName={"ticket-outline"} pageName={"Tickets"} />
                         <RowButton navigation={navigation} buttonText={"Cài đặt"} iconName={"settings-outline"} pageName={"Settings"} />
                         <RowButton navigation={navigation} buttonText={"Thông tin liên hệ"} iconName={"call-outline"} pageName={"Contacts"} />
-                        <RowButton navigation={navigation} buttonText={"Điều khoản và chính sách"} iconName={"document-text-outline"} pageName={""} />
-                        <RowButton navigation={navigation} buttonText={"Câu hỏi thường gặp"} iconName={"chatbubbles-outline"} pageName={""} lastButton={true} />
+                        <RowButton navigation={navigation} buttonText={"Điều khoản và chính sách"} iconName={"document-text-outline"} pageName={"TermsOfUse"} />
+                        <RowButton navigation={navigation} buttonText={"Câu hỏi thường gặp"} iconName={"chatbubbles-outline"} pageName={"FAQ"} lastButton={true} />
                         <SignOutButton navigation={navigation} />
                     </View>
                 </ScrollView>
