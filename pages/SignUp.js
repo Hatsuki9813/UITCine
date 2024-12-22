@@ -27,6 +27,11 @@ export default function SignUp({ navigation }) {
 
     const SignUp = async () => {
         const { username, email, password, confirmPassword } = formData;
+        if (username === "" || password === "" || confirmPassword === "") {
+            Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
         if (password !== confirmPassword) {
             Alert.alert("Lỗi", "Mật khẩu và xác nhận mật khẩu không khớp.");
             return;
@@ -50,7 +55,7 @@ export default function SignUp({ navigation }) {
                             <Text style={styles.logoName}>UITCine</Text>
                         </View>
                         <View style={styles.row2}>
-                            <AuthInput title={"Tài khoản"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
+                            <AuthInput title={"Tài khoản *"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
                             <AuthInput
                                 title={"Email"}
                                 autoCapitalize={"none"}
@@ -59,14 +64,14 @@ export default function SignUp({ navigation }) {
                                 onChangeText={(text) => setFormData((prev) => ({ ...prev, email: text }))}
                             />
                             <AuthInput
-                                title={"Mật khẩu"}
+                                title={"Mật khẩu *"}
                                 autoCapitalize={"none"}
                                 secureTextEntry={true}
                                 iconName={"eye-off"}
                                 onChangeText={(text) => setFormData((prev) => ({ ...prev, password: text }))}
                             />
                             <AuthInput
-                                title={"Xác nhận mật khẩu"}
+                                title={"Xác nhận mật khẩu *"}
                                 autoCapitalize={"none"}
                                 secureTextEntry={true}
                                 iconName={"eye-off"}

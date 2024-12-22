@@ -29,6 +29,11 @@ export default function SignIn({ navigation }) {
 
     const SignIn = async () => {
         const { username, password } = formData;
+        if (username === "" || password === "") {
+            Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
         const result = await signIn({ username, password });
         if (result) {
             navigation.replace("MainStack");

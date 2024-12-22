@@ -49,7 +49,7 @@ const AuthInput = forwardRef(({ title, autoCapitalize, secureTextEntry, iconName
                 onSubmitEditing={onSubmitEditing}
                 ref={ref}
             />
-            {secureTextEntry && isFocused ? (
+            {secureTextEntry && text.trim() !== "" ? (
                 <TouchableOpacity style={styles.button} onPress={showPasswordHandler}>
                     <Feather name={changeableIconName} size={24} color="white" />
                 </TouchableOpacity>
