@@ -47,6 +47,6 @@
 ## 📌Góp ý 
 Nếu có thắc mắc nào, liên hệ chúng tôi
 
-Email: 22520600@gm.uit.edu.vn
+Email: 22520600@gm.uit.edu.vn 22521299@gm.uit.edu.vn
 
 
