@@ -469,7 +469,7 @@ export const getSoldSeatsByShowtime = async (showtime_id) => {
     return result;
 };*/
 export const getPromotionCode = async (coupon) => {
-    const response = await fetch(`http://10.0.2.2:5000/api/sold-seats/${coupon}`);
+    const response = await fetch(`http://10.0.2.2:5000/api/promotion/${coupon}`);
     if (response.ok) {
         const data = await response.json(); // Parse JSON từ phản hồi
         console.log("getPromotionCode: " + data)

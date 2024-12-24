@@ -10,7 +10,7 @@ export default function AuthStack() {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Mô phỏng thời gian loading (2 giây)
+        // Mô phỏng thời gian loading (5 giây)
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 5000);
@@ -19,7 +19,7 @@ export default function AuthStack() {
     }, []);
 
     if (isLoading) {
-        return <LoadingScreen />; // Hiển thị màn hình loading
+        return <LoadingScreen />;
     }
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
