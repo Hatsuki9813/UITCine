@@ -1,17 +1,13 @@
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet, Linking } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../../themes/colors";
-
-import { test1, test2, test, getShowtimeBase } from "../../database/database";
 
 export default function RowButton({ navigation, buttonText, iconName, pageName, lastButton, userData }) {
     const styles = getStyles(lastButton);
 
     const goToPage = () => {
-        if (pageName == "Tickets" || pageName == "AccountDetails") navigation.navigate(pageName, { userData });
-        else if (pageName == "Settings") test1();
-        else if (pageName == "Contacts") getShowtimeBase(1);
+        navigation.navigate(pageName, { userData: userData });
     };
 
     return (

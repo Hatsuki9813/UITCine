@@ -61,7 +61,7 @@ export default function Cinema({ navigation }) {
             </View>
             <ScrollView style={styles.cinemaList}>
                 {Array.isArray(cinemas) && cinemas.length > 0 ? (
-                    cinemas.map((cinema) => <CinemaListChild key={cinema.id} navigation={navigation} cinemaName={cinema.name} cinemaAddress={cinema.address} />)
+                    cinemas.map((cinema) => <CinemaListChild key={cinema.id} navigation={navigation} cinemaName={cinema.name} cinemaAddress={cinema.address} cinemaId={cinema.id} />)
                 ) : (
                     <Text style={styles.noCinemas}>Không có rạp phim nào tại tỉnh này.</Text>
                 )}

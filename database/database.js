@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-
+import { getDayByOffset } from "./init-data/showtimes.js";  
 export const db = SQLite.openDatabaseSync("UITCine.db");
 
 import { getTodayDate } from "../modules/getTodayDate.js";
@@ -8,7 +8,7 @@ import { films } from "./init-data/films.js";
 import { cinemas } from "./init-data/cinemas.js";
 import { theaters } from "./init-data/theaters.js";
 import { showtimes } from "./init-data/showtimes.js";
-
+import axios from "axios";
 const dropTables = async () => {
     await db.runAsync(`DROP TABLE IF EXISTS users`);
     await db.runAsync(`DROP TABLE IF EXISTS films`);
@@ -23,15 +23,20 @@ const dropTables = async () => {
 };
 
 const createTables = async () => {
-    await db.runAsync(`CREATE TABLE IF NOT EXISTS users (
+    try {
+        await db.runAsync(`CREATE TABLE IF NOT EXISTS users (
         username TEXT PRIMARY KEY,
         password TEXT,
         display_name TEXT,
         email TEXT,
         phone_number TEXT,
         avatar TEXT,
-        dob DATETIME
+        dob TEXT
         )`);
+    } catch (error) {
+        console.log(error);
+    }
+
     await db.runAsync(`CREATE TABLE IF NOT EXISTS films (
         id INTEGER PRIMARY KEY,
         name TEXT,
@@ -125,7 +130,7 @@ const initData = async () => {
             film.poster,
             film.trailer,
             film.status_id,
-            film.banner
+            film.banner,
         ];
         const query = `
         INSERT INTO films 
@@ -194,7 +199,7 @@ export const startDatabase = async () => {
     await initData();
 };
 
-export const signUp = async (data) => {
+/*export const signUp = async (data) => {
     try {
         const query = `
             INSERT INTO users (username, password, email, phone_number, avatar, dob, display_name)
@@ -206,9 +211,34 @@ export const signUp = async (data) => {
     } catch {
         return 0; // Lỗi
     }
-};
+};*/
+export const signUp = async (data) => {
+    try {
+        const response = await fetch('http://10.0.2.2:5000/api/signup', {
+            method: 'POST', // HTTP method
+            headers: {
+                'Content-Type': 'application/json', // Specify JSON content
+            },
+            body: JSON.stringify(data), // Convert data object to JSON string
+        });
 
-export const signIn = async (data) => {
+        if (response.ok) {
+            const result = await response.json(); // Parse JSON response
+            console.log("Signup successful:", result);
+            return result;
+        } else {
+            // Handle error response
+            const error = await response.json();
+            console.error("Signup failed:", error.message);
+            return { success: false, message: error.message };
+        }
+    } catch (error) {
+        // Handle network errors or other issues
+        console.error("Error during signup:", error);
+        return { success: false, message: "Network error" };
+    }
+};
+/*export const signIn = async (data) => {
     const query = `
             SELECT * FROM users
             WHERE username = ? AND password = ?
@@ -219,9 +249,35 @@ export const signIn = async (data) => {
     // Kiểm tra kết quả
     if (result.length > 0) return 1; // Đăng nhập thành công
     return 0;
-};
+};*/
 
-export const getFilmsByStatus = async (status_id) => {
+export const signIn = async (data) => {
+    try {
+        const response = await fetch('http://10.0.2.2:5000/api/signin', {
+            method: 'POST', // HTTP method
+            headers: {
+                'Content-Type': 'application/json', // Specify JSON content
+            },
+            body: JSON.stringify(data), // Convert data object to JSON string
+        });
+
+        if (response.ok) {
+            const result = await response.json(); // Parse JSON response
+            console.log("Sign-in successful:", result);
+            return result;
+        } else {
+            // Handle error response
+            const error = await response.json();
+            console.error("Sign-in failed:", error.message);
+            return { success: false, message: error.message };
+        }
+    } catch (error) {
+        // Handle network errors or other issues
+        console.error("Error during sign-in:", error);
+        return { success: false, message: "Network error" };
+    }
+};
+/*export const getFilmsByStatus = async (status_id) => {
     const query = `
             SELECT * FROM films
             WHERE status_id = ${status_id}
@@ -229,30 +285,46 @@ export const getFilmsByStatus = async (status_id) => {
     const params = [status_id];
     const result = await db.getAllAsync(query, params);
     return result;
+};*/
+export const getFilmsByStatus = async (status_id) => {
+        const response = await fetch(`http://10.0.2.2:5000/api/films/${status_id}`);
+        if (response.ok) {
+            const data = await response.json(); // Parse JSON từ phản hồi
+            return data
+        } else {
+            // Xử lý lỗi nếu phản hồi không thành công
+            console.error("Error fetching films:", response.statusText);
+        }
 };
 
+
+
 export const getCinemasByProvince = async (province) => {
-    const query = `
-            SELECT * FROM cinemas
-            WHERE province_id = ?
-        `;
-    const params = [province];
-    const result = await db.getAllAsync(query, params);
-    return result;
+    const response = await fetch(`http://10.0.2.2:5000/api/cinemas/${province}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching cinema by province:", response.statusText);
+    }
 };
 
 export const getAllProvinces = async () => {
-    const query = `
-            SELECT * FROM provinces
-        `;
-    const result = await db.getAllAsync(query);
-    return result;
+    const response = await fetch(`http://10.0.2.2:5000/api/provinces`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("all province: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching province:", response.statusText);
+    }
 };
 
 export const test1 = async () => {
-    console.log("Test1");
     const query = `
-            SELECT id FROM films
+            SELECT * FROM users
         `;
     const result = await db.getAllAsync(query);
     console.log(result);
@@ -273,7 +345,7 @@ export const test = async () => {
     }
 };
 
-export const getFilmsShowtimes = async (province_id, cinema_id, film_id) => {
+/*export const getFilmsShowtimes = async (province_id, cinema_id, film_id) => {
     if (!cinema_id) {
         const query = `
             SELECT
@@ -327,26 +399,87 @@ export const getFilmsShowtimes = async (province_id, cinema_id, film_id) => {
         const result = await db.getAllAsync(query, params);
         return result;
     }
-};
+};*/
+export const getFilmsShowtimes = async (province_id, cinema_id, film_id) => {
+    const url = new URL('http://10.0.2.2:5000/api/showtimes');
+    const params = { film_id, province_id, cinema_id };
+    Object.keys(params).forEach(key => params[key] == null && delete params[key]);
+    url.search = new URLSearchParams(params).toString();
 
-export const getSoldSeatsByShowtime = async (showtime_id) => {
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json();
+            
+            // Xử lý lại dữ liệu showtime
+            const processedData = data.map(item => {
+                try {
+                    // Parse chuỗi showtime từ JSON string
+                    const [offset, time] = JSON.parse(item.showtime);
+                    // Tạo ngày mới từ offset và time
+                    const newShowtime = `${getDayByOffset(offset)} ${time}`;
+                    
+                    // Trả về object mới với showtime đã được xử lý
+                    return {
+                        ...item,
+                        showtime: newShowtime
+                    };
+                } catch (error) {
+                    console.error("Error processing showtime:", error);
+                    return item; // Trả về item gốc nếu có lỗi
+                }
+            });
+
+            console.log("Showtimes data: ", processedData);
+            return processedData;
+        } else {
+            console.error("Error fetching showtimes:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error fetching showtimes:", error);
+    }
+};
+/*export const getSoldSeatsByShowtime = async (showtime_id) => {
     const query = `
         SELECT seat_id FROM sold_seats WHERE showtime_id = ?
     `;
     const params = [showtime_id];
     const result = await db.getAllAsync(query, params);
     return result;
+
+};*/
+export const getSoldSeatsByShowtime = async (showtime_id) => {
+    const response = await fetch(`http://10.0.2.2:5000/api/sold-seats/${showtime_id}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("SoldSeatsByShowtime: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching SoldSeatsByShowtime:", response.statusText);
+    }
 };
 
-export const getPromotionCode = async (coupon) => {
+/*export const getPromotionCode = async (coupon) => {
     const query = `
         SELECT * FROM coupons WHERE coupon = ?
     `;
     const params = [coupon];
     const result = await db.getAllAsync(query, params);
     return result;
+};*/
+export const getPromotionCode = async (coupon) => {
+    const response = await fetch(`http://10.0.2.2:5000/api/promotion/${coupon}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("getPromotionCode: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching getPromotionCode:", response.statusText);
+    }
 };
-
+/* 
 export const getTicketPrice = async (ticket_id) => {
     const query = `
         SELECT * FROM tickets WHERE id = ?
@@ -355,8 +488,20 @@ export const getTicketPrice = async (ticket_id) => {
     const result = await db.getAllAsync(query, params);
     return result;
 };
+*/
+export const getTicketPrice = async (ticket_id) => {
+    const response = await fetch(`http://10.0.2.2:5000/api/ticket-price/${ticket_id}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("getTicketPrice: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching getTicketPrice:", response.statusText);
+    }
+};
 
-export const addOrder = async (data) => {
+/*export const addOrder = async (data) => {
     try {
         const query1 = `
             INSERT INTO orders (id, price, showtime_id, username, used, seats, day) VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -376,9 +521,33 @@ export const addOrder = async (data) => {
     } catch (error) {
         console.log(error);
     }
+};*/
+export const addOrder = async (data) => {
+    try {
+        const response = await fetch('http://10.0.2.2:5000/api/add-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // Chuyển đổi `data` thành JSON
+        });
+
+        if (response.ok) {
+            const result = await response.json(); // Parse phản hồi JSON
+            console.log("Order added successfully:", result);
+            return result; // Trả về kết quả từ API
+        } else {
+            console.error("Failed to add order:", response.statusText);
+            return { error: response.statusText }; // Trả về lỗi nếu có
+        }
+    } catch (error) {
+        console.error("Error adding order:", error);
+        return { error: error.message }; // Trả về lỗi từ `fetch`
+    }
 };
 
-export const demoUsedTicket = async (order_id) => {
+
+/*export const demoUsedTicket = async (order_id) => {
     try {
         const query = `
         UPDATE orders
@@ -390,18 +559,50 @@ export const demoUsedTicket = async (order_id) => {
     } catch (error) {
         console.log(error);
     }
-};
+};*/
+export const demoUsedTicket = async (order_id) => {
+    try {
+        const response = await fetch(`http://10.0.2.2:5000/api/usedticket/${order_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
 
-export const getUserInfo = async (username) => {
+        if (response.ok) {
+            const result = await response.json(); // Parse phản hồi JSON
+            console.log("Order added successfully:", result);
+            return result; // Trả về kết quả từ API
+        } else {
+            console.error("Failed to add order:", response.statusText);
+            return { error: response.statusText }; // Trả về lỗi nếu có
+        }
+    } catch (error) {
+        console.error("Error adding order:", error);
+        return { error: error.message }; // Trả về lỗi từ `fetch`
+    }
+};
+/*export const getUserInfo = async (username) => {
     const query = `
         SELECT * FROM users WHERE username = ?
     `;
     const params = [username];
     const result = await db.getAllAsync(query, params);
     return result;
+};*/
+export const getUserInfo = async (username) => {
+    const response = await fetch(`http://10.0.2.2:5000/api/user/${username}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("getUserInfo: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching getUserInfo:", response.statusText);
+    }
 };
 
-export const getUsersTicket = async (username, ticketType) => {
+/*export const getUsersTicket = async (username, ticketType) => {
     const query = `
         SELECT * FROM orders WHERE username = ? AND used = ?
         ORDER BY day DESC
@@ -410,9 +611,20 @@ export const getUsersTicket = async (username, ticketType) => {
     const params = [username, ticketType];
     const result = await db.getAllAsync(query, params);
     return result;
+};*/
+export const getUsersTicket = async (username, ticketType) => {
+    const response = await fetch(`http://10.0.2.2:5000/api/user-tickets/${username}/${ticketType}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        console.log("getUsersTicket: " + data)
+        return data
+    } else {
+        // Xử lý lỗi nếu phản hồi không thành công
+        console.error("Error fetching getUsersTicket:", response.statusText);
+    }
 };
 
-export const getShowtimeBase = async (showtime_id) => {
+/*export const getShowtimeBase = async (showtime_id) => {
     try {
         const query = `
         SELECT
@@ -438,4 +650,149 @@ export const getShowtimeBase = async (showtime_id) => {
     } catch (error) {
         console.log(error);
     }
+};*/
+export const getShowtimeBase = async (showtime_id) => {
+    try {
+        const response = await fetch(`http://10.0.2.2:5000/api/showtime/${showtime_id}`);
+        if (response.ok) {
+            const data = await response.json(); // Parse JSON từ phản hồi
+            
+            // Xử lý dữ liệu showtime
+            const processedData = data.map(item => {
+                try {
+                    // Parse chuỗi showtime từ JSON string
+                    const [offset, time] = JSON.parse(item.showtime);
+                    // Tạo ngày mới từ offset và time
+                    const newShowtime = `${getDayByOffset(offset)} ${time}`;
+                    
+                    // Trả về object mới với showtime đã được xử lý
+                    return {
+                        ...item,
+                        showtime: newShowtime
+                    };
+                } catch (error) {
+                    console.error("Error processing showtime:", error);
+                    return item; // Trả về item gốc nếu có lỗi
+                }
+            });
+
+            console.log("Processed Showtime Base Data:", processedData);
+            return processedData;
+        } else {
+            console.error("Error fetching getShowtimeBase:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error fetching getShowtimeBase:", error);
+    }
+};
+/*export const changeUserInfo = async (data) => {
+    try {
+        await db.runAsync("BEGIN TRANSACTION");
+        const query = `
+            UPDATE users
+            SET ${data.field} = ?
+            WHERE username = ?
+        `;
+        const params = [data.value, data.username];
+        await db.runAsync(query, params);
+        await db.runAsync("COMMIT");
+        return 1;
+    } catch (error) {
+        await db.runAsync("ROLLBACK");
+        console.log(error);
+        return 0;
+    }
+};*/
+export const changeUserInfo = async (data) => {
+    try {
+        const response = await fetch('http://10.0.2.2:5000/api/update-user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                field: data.field,
+                value: data.value,
+                username: data.username
+            })
+        });
+
+        const result = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(result.error);
+        }
+
+        return 1; // Thành công
+    } catch (error) {
+        console.log(error);
+        return 0; // Thất bại
+    }
+};
+
+
+/*export const getCinemaShowtimes = async (cinema_id) => {
+    try {
+        const query = `
+            SELECT
+            films.id AS film_id,
+            films.name AS film_name,
+            films.format AS film_format,
+            films.poster AS film_poster,
+            films.duration AS film_duration,
+            films.age_rating AS film_ageRating,
+            theaters.id AS theater_id,
+            theaters.name AS theater_name,
+            theaters.format AS theater_format,
+            theaters.row AS theater_row,
+            theaters.col AS theater_col,
+            showtime_details.id AS showtime_id, 
+            showtime_details.showtime,
+            showtime_details.format
+            FROM showtime_details
+            INNER JOIN theaters ON showtime_details.theater_id = theaters.id
+            INNER JOIN films ON showtime_details.film_id = films.id
+            WHERE showtime_details.cinema_id = ?
+        `;
+        const params = [cinema_id];
+        const result = await db.getAllAsync(query, params);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+};*/
+export const getCinemaShowtimes = async (cinema_id) => {
+    try {
+    const response = await fetch(`http://10.0.2.2:5000/api/cinemashowtimes/${cinema_id}`);
+    if (response.ok) {
+        const data = await response.json(); // Parse JSON từ phản hồi
+        
+        // Xử lý dữ liệu showtime
+        const processedData = data.map(item => {
+            try {
+                // Parse chuỗi showtime từ JSON string
+                const [offset, time] = JSON.parse(item.showtime);
+                // Tạo ngày mới từ offset và time
+                const newShowtime = `${getDayByOffset(offset)} ${time}`;
+                
+                // Trả về object mới với showtime đã được xử lý
+                return {
+                    ...item,
+                    showtime: newShowtime
+                };
+            } catch (error) {
+                console.error("Error processing showtime:", error);
+                return item; // Trả về item gốc nếu có lỗi
+            }
+        });
+
+        console.log("Processed getCinemaShowtimes Data:", processedData);
+        return processedData;
+    } else {
+        console.error("Error fetching getCinemaShowtimes:", response.statusText);
+    }
+} catch (error) {
+    console.error("Error fetching getCinemaShowtimes:", error);
+}
+    
 };

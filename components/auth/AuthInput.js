@@ -49,7 +49,7 @@ const AuthInput = forwardRef(({ title, autoCapitalize, secureTextEntry, iconName
                 onSubmitEditing={onSubmitEditing}
                 ref={ref}
             />
-            {secureTextEntry && isFocused ? (
+            {secureTextEntry && text.trim() !== "" ? (
                 <TouchableOpacity style={styles.button} onPress={showPasswordHandler}>
                     <Feather name={changeableIconName} size={24} color="white" />
                 </TouchableOpacity>
@@ -82,6 +82,7 @@ const getStyles = (isEmptyInput, isFocused) =>
             zIndex: 0,
         },
         titleText: {
+            fontFamily: "BVP_Regular",
             color: colors.lightGray,
             fontSize: !isFocused && isEmptyInput ? 20 : 16,
             left: 12,
@@ -90,6 +91,7 @@ const getStyles = (isEmptyInput, isFocused) =>
         AuthInput: {
             position: "absolute",
             bottom: 4,
+            fontFamily: "BVP_Regular",
             fontSize: 20,
             zIndex: 1,
             color: "white",

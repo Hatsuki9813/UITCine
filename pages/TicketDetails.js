@@ -69,7 +69,7 @@ export default function TicketDetails({ navigation, route }) {
                             {showtimeData.film_format} {showtimeData.format}
                         </Text>
                         <Text style={styles.regular}>{showtimeData.cinema_name}</Text>
-                        <Text style={styles.semibold}>{formatFullDate(showtimeData.showtime)}</Text>
+                        <Text style={styles.regular}>{formatFullDate(showtimeData.showtime)}</Text>
                     </View>
                 </View>
                 <DashLine />
@@ -205,5 +205,6 @@ const getStyles = (posterContainerWidth) =>
         semibold: {
             fontSize: 16,
             fontFamily: "BVP_SemiBold",
+            textAlign: "center",
         },
     });

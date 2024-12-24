@@ -1,5 +1,5 @@
 import { StatusBar, ScrollView, View, StyleSheet, Image, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 import RowButton from "../components/account/RowButton";
 import SignOutButton from "../components/account/SignOutButton";
@@ -11,21 +11,26 @@ import { getUserInfo } from "../database/database";
 
 import colors from "../themes/colors";
 
-export default function Account({ navigation }) {
-    const [userData, setUser] = useState({});
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const { username } = useAuth();
-                const userInfo = await getUserInfo(username);
-                setUser(userInfo[0]);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+import { useFocusEffect } from "@react-navigation/native";
 
-        fetchUserInfo();
-    }, [userData]);
+export default function Account({ navigation }) {
+    const { username } = useAuth();
+    const [userData, setUser] = useState({});
+
+    useFocusEffect(
+        useCallback(() => {
+            const fetchUserInfo = async () => {
+                try {
+                    const userInfo = await getUserInfo(username);
+                    setUser(userInfo[0]);
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+
+            fetchUserInfo();
+        }, [])
+    );
 
     const styles = getStyles();
 
@@ -39,9 +44,9 @@ export default function Account({ navigation }) {
                 <ScrollView style={styles.container}>
                     <View style={styles.row1}>
                         <TouchableOpacity onPress={() => console.log("Change avatar")}>
-                            <Image source={userData ? { uri: userData.avatar } : defaultAvatar} style={styles.avatar} />
+                            <Image source={userData?.avatar ? { uri: userData.avatar } : defaultAvatar} style={styles.avatar} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate("AccountDetails")}>
+                        <TouchableOpacity onPress={() => navigation.navigate("AccountDetails", { userData })}>
                             <Text style={styles.name}>{userData.display_name ? userData.display_name : `@${userData.username}`}</Text>
                         </TouchableOpacity>
                     </View>
@@ -50,9 +55,9 @@ export default function Account({ navigation }) {
                         <RowButton navigation={navigation} buttonText={"Cập nhật thông tin"} iconName={"create-outline"} pageName={"AccountDetails"} userData={userData} />
                         <RowButton navigation={navigation} buttonText={"Vé của tôi"} iconName={"ticket-outline"} pageName={"Tickets"} />
                         <RowButton navigation={navigation} buttonText={"Cài đặt"} iconName={"settings-outline"} pageName={"Settings"} />
-                        <RowButton navigation={navigation} buttonText={"Thông tin liên hệ"} iconName={"call-outline"} pageName={"Contacts"} />
-                        <RowButton navigation={navigation} buttonText={"Điều khoản và chính sách"} iconName={"document-text-outline"} pageName={""} />
-                        <RowButton navigation={navigation} buttonText={"Câu hỏi thường gặp"} iconName={"chatbubbles-outline"} pageName={""} lastButton={true} />
+                        <RowButton navigation={navigation} buttonText={"Thông tin liên hệ"} iconName={"call-outline"} pageName={"Contact"} />
+                        <RowButton navigation={navigation} buttonText={"Điều khoản và chính sách"} iconName={"document-text-outline"} pageName={"TermsOfUse"} />
+                        <RowButton navigation={navigation} buttonText={"Câu hỏi thường gặp"} iconName={"chatbubbles-outline"} pageName={"FAQ"} lastButton={true} />
                         <SignOutButton navigation={navigation} />
                     </View>
                 </ScrollView>

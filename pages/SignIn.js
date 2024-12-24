@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Dimensions  } from "react-native";
+import { SafeAreaView, StatusBar, View, Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from "react-native";
 
 import colors from "../themes/colors";
 
@@ -8,7 +8,7 @@ import AuthButton from "../components/auth/AuthButton";
 
 import { useAuth } from "../contexts/AuthContext";
 
-import { test, signIn } from "../database/database";
+import { signIn } from "../database/database";
 
 export default function SignIn({ navigation }) {
     const { login } = useAuth();
@@ -17,6 +17,8 @@ export default function SignIn({ navigation }) {
         username: "",
         password: "",
     });
+
+    const screenHeight = Dimensions.get("window").height;
 
     const styles = getStyles();
 
@@ -27,17 +29,21 @@ export default function SignIn({ navigation }) {
 
     const SignIn = async () => {
         const { username, password } = formData;
+        if (username === "" || password === "") {
+            Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
         const result = await signIn({ username, password });
-        if (result) {
-        navigation.replace("MainStack");
-        login(username);
+        if (result.success) {
+            navigation.replace("MainStack");
+            login(username);
         } else Alert.alert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
     };
 
     const passwordInputRef = useRef();
 
     const logo = require("../assets/uit-cine-logo.png");
-    const screenHeight = Dimensions.get("window").height;
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -70,7 +76,7 @@ export default function SignIn({ navigation }) {
                         <AuthButton onPress={SignIn} title={"Đăng nhập"} />
                         <View style={styles.forgotPassword}>
                             <Text style={styles.text}>Quên mật khẩu? </Text>
-                            <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }} onPress={() => test()}>
+                            <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }}>
                                 <Text style={styles.buttonText}>Ấn vào đây</Text>
                             </TouchableOpacity>
                         </View>
@@ -120,8 +126,8 @@ const getStyles = () =>
         },
         logoName: {
             color: colors.pink,
+            fontFamily: "BVP_Bold",
             fontSize: 32,
-            fontWeight:"bold"
         },
         forgotPassword: {
             flexDirection: "row",
@@ -130,10 +136,12 @@ const getStyles = () =>
             marginTop: 10,
         },
         text: {
+            fontFamily: "BVP_SemiBold",
             color: "white",
             fontSize: 16,
         },
         buttonText: {
+            fontFamily: "BVP_SemiBold",
             color: colors.pink,
             fontSize: 16,
         },

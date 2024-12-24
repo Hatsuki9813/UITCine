@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import colors from "../../themes/colors";
 
-export default function CinemaListChild({ navigation, cinemaName, cinemaAddress }) {
+export default function CinemaListChild({ navigation, cinemaName, cinemaAddress, cinemaId }) {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("CinemaShowtimes")}>
+        <TouchableOpacity onPress={() => navigation.navigate("CinemaShowtimes", { cinemaId: cinemaId, cinemaName: cinemaName, cinemaAddress: cinemaAddress })}>
             <View style={styles.container}>
                 <Text style={styles.cinemaName}>{cinemaName}</Text>
                 <Text style={styles.cinemaAddress}>{cinemaAddress}</Text>

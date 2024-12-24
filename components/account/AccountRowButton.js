@@ -4,10 +4,22 @@ import colors from "../../themes/colors";
 
 import { Ionicons } from "@expo/vector-icons";
 
-export default function AccountRowButton({ onPress, title, value, lastButton, danger, denyChange }) {
+export default function AccountRowButton({ title, value, lastButton, danger, option, navigation }) {
     const styles = getStyles(lastButton, value, danger);
+
+    const goAction = () => {
+        if (option.field == "userInfo" && !option.denyChange) {
+            navigation.navigate("AccountDetailChange", { title: title, value: value });
+            return;
+        }
+        if (option.field == "security" && option.action == "changePw") {
+            navigation.navigate("ChangePw");
+            return;
+        }
+    };
+
     return (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={goAction}>
             <View style={styles.container}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{title}</Text>
@@ -15,7 +27,7 @@ export default function AccountRowButton({ onPress, title, value, lastButton, da
                 <View style={styles.value}>
                     <Text style={styles.valueText}>{value}</Text>
                 </View>
-                <View style={styles.icon}>{!denyChange && <Ionicons name="chevron-forward-outline" size={24} color={colors.lightPurple} />}</View>
+                <View style={styles.icon}>{!option.denyChange && <Ionicons name="chevron-forward-outline" size={24} color={colors.lightPurple} />}</View>
             </View>
         </TouchableOpacity>
     );

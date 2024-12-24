@@ -8,7 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { startDatabase } from "./database/database";
 
 export default function App() {
-    loadFonts();
+    // loadFonts();
     startDatabase();
 
     return (

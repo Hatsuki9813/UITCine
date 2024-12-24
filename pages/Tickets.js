@@ -23,9 +23,12 @@ export default function Tickets({ navigation }) {
                 console.error("Error fetching tickets: ", error);
             }
         };
+        const unsubscribe = navigation.addListener('focus', fetchTickets);
 
         fetchTickets();
-    }, []);
+        return unsubscribe;
+
+    }, [navigation, username]);
 
     const groupTicketsByMonth = (tickets) => {
         const grouped = tickets.reduce((acc, ticket) => {

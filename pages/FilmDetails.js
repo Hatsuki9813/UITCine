@@ -26,12 +26,7 @@ export default function FilmDetails({ route }) {
     return (
         <ScrollView style={styles.container}>
             <View>
-                <Image
-                    style={styles.headerImage}
-                    source={{
-                        uri: film.banner
-                    }}
-                />
+                <Image style={styles.headerImage} source={{ uri: film.banner }} />
                 <View style={styles.overlay}></View>
             </View>
             <View style={styles.filmDetails}>

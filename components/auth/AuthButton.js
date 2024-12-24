@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     buttonText: {
+        fontFamily: "BVP_SemiBold",
         color: "black",
         fontSize: 20,
     },

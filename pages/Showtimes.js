@@ -46,6 +46,7 @@ export default function Showtimes({ route, navigation }) {
             const uniqueDates = Array.from(
                 new Set(
                     showtimeData.map((item) => {
+                        console.log("item.showtime:" +item.showtime)
                         const showtimeDate = new Date(item.showtime);
                         return showtimeDate.toISOString().split("T")[0];
                     })
@@ -122,7 +123,7 @@ export default function Showtimes({ route, navigation }) {
 
         setShowtimesByDate(groupedByCinemaAndFormat);
     };
-
+    console.log("showtime value in showtimes.js:"+JSON.stringify(showtimeValue))
     return (
         <View style={styles.container}>
             <View style={styles.dropdowns}>

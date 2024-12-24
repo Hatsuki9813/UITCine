@@ -23,8 +23,15 @@ export default function SignUp({ navigation }) {
         return;
     };
 
+    const screenHeight = Dimensions.get("window").height;
+
     const SignUp = async () => {
         const { username, email, password, confirmPassword } = formData;
+        if (username === "" || password === "" || confirmPassword === "") {
+            Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
         if (password !== confirmPassword) {
             Alert.alert("Lỗi", "Mật khẩu và xác nhận mật khẩu không khớp.");
             return;
@@ -36,46 +43,51 @@ export default function SignUp({ navigation }) {
     };
 
     const logo = require("../assets/uit-cine-logo.png");
-    const screenHeight = Dimensions.get("window").height;
 
     return (
-        <ScrollView> 
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-            <SafeAreaView style={[styles.background, { minHeight: screenHeight }]}>
-            <StatusBar barStyle={"light-content"} />
-                <View style={styles.container}>
-                    <View style={styles.row1}>
-                        <Image source={logo} style={styles.logo} />
-                        <Text style={styles.logoName}>UITCine</Text>
+        <ScrollView>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <SafeAreaView style={[styles.background, { minHeight: screenHeight }]}>
+                    <StatusBar barStyle={"light-content"} />
+                    <View style={styles.container}>
+                        <View style={styles.row1}>
+                            <Image source={logo} style={styles.logo} />
+                            <Text style={styles.logoName}>UITCine</Text>
+                        </View>
+                        <View style={styles.row2}>
+                            <AuthInput title={"Tài khoản *"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
+                            <AuthInput
+                                title={"Email"}
+                                autoCapitalize={"none"}
+                                iconName={"x"}
+                                keyboardType={"email-address"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, email: text }))}
+                            />
+                            <AuthInput
+                                title={"Mật khẩu *"}
+                                autoCapitalize={"none"}
+                                secureTextEntry={true}
+                                iconName={"eye-off"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, password: text }))}
+                            />
+                            <AuthInput
+                                title={"Xác nhận mật khẩu *"}
+                                autoCapitalize={"none"}
+                                secureTextEntry={true}
+                                iconName={"eye-off"}
+                                onChangeText={(text) => setFormData((prev) => ({ ...prev, confirmPassword: text }))}
+                            />
+                            <AuthButton title={"Đăng ký"} onPress={SignUp} />
+                        </View>
+                        <View style={styles.row3}>
+                            <Text style={styles.text}>Đã có tài khoản? </Text>
+                            <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }} onPress={goToSignIn}>
+                                <Text style={styles.buttonText}>Đăng nhập ngay</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.row2}>
-                        <AuthInput title={"Tài khoản"} autoCapitalize={"none"} iconName={"x"} onChangeText={(text) => setFormData((prev) => ({ ...prev, username: text }))} />
-                        <AuthInput title={"Email"} autoCapitalize={"none"} iconName={"x"} keyboardType={"email-address"} onChangeText={(text) => setFormData((prev) => ({ ...prev, email: text }))} />
-                        <AuthInput
-                            title={"Mật khẩu"}
-                            autoCapitalize={"none"}
-                            secureTextEntry={true}
-                            iconName={"eye-off"}
-                            onChangeText={(text) => setFormData((prev) => ({ ...prev, password: text }))}
-                        />
-                        <AuthInput
-                            title={"Xác nhận mật khẩu"}
-                            autoCapitalize={"none"}
-                            secureTextEntry={true}
-                            iconName={"eye-off"}
-                            onChangeText={(text) => setFormData((prev) => ({ ...prev, confirmPassword: text }))}
-                        />
-                        <AuthButton title={"Đăng ký"} onPress={SignUp} />
-                    </View>
-                    <View style={styles.row3}>
-                        <Text style={styles.text}>Đã có tài khoản? </Text>
-                        <TouchableOpacity hitSlop={{ top: 30, right: 30, bottom: 30, left: 30 }} onPress={goToSignIn}>
-                            <Text style={styles.buttonText}>Đăng nhập ngay</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </SafeAreaView>
-        </TouchableWithoutFeedback>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
         </ScrollView>
     );
 }
@@ -113,13 +125,16 @@ const getStyles = () =>
         },
         logoName: {
             color: colors.pink,
+            fontFamily: "BVP_Bold",
             fontSize: 32,
         },
         text: {
+            fontFamily: "BVP_SemiBold",
             color: "white",
             fontSize: 16,
         },
         buttonText: {
+            fontFamily: "BVP_SemiBold",
             color: colors.pink,
             fontSize: 16,
         },

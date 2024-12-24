@@ -1,6 +1,6 @@
 const today = new Date();
 
-const getDayByOffset = (offset) => {
+export const getDayByOffset = (offset) => {
     const todayCopy = new Date(today); // Tạo bản sao của `today` mỗi lần gọi hàm
     todayCopy.setDate(todayCopy.getDate() + offset); // Thêm offset vào bản sao của ngày hôm nay
 

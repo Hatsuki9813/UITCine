@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = (usernameInput) => {
         setIsLoggedIn(true);
-        setUsername("leviettan000");
+        setUsername(usernameInput);
     };
 
     const logout = () => {
