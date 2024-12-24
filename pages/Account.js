@@ -55,7 +55,7 @@ export default function Account({ navigation }) {
                         <RowButton navigation={navigation} buttonText={"Cập nhật thông tin"} iconName={"create-outline"} pageName={"AccountDetails"} userData={userData} />
                         <RowButton navigation={navigation} buttonText={"Vé của tôi"} iconName={"ticket-outline"} pageName={"Tickets"} />
                         <RowButton navigation={navigation} buttonText={"Cài đặt"} iconName={"settings-outline"} pageName={"Settings"} />
-                        <RowButton navigation={navigation} buttonText={"Thông tin liên hệ"} iconName={"call-outline"} pageName={"Contacts"} />
+                        <RowButton navigation={navigation} buttonText={"Thông tin liên hệ"} iconName={"call-outline"} pageName={"Contact"} />
                         <RowButton navigation={navigation} buttonText={"Điều khoản và chính sách"} iconName={"document-text-outline"} pageName={"TermsOfUse"} />
                         <RowButton navigation={navigation} buttonText={"Câu hỏi thường gặp"} iconName={"chatbubbles-outline"} pageName={"FAQ"} lastButton={true} />
                         <SignOutButton navigation={navigation} />

@@ -35,7 +35,7 @@ export default function SignIn({ navigation }) {
         }
 
         const result = await signIn({ username, password });
-        if (result) {
+        if (result.success) {
             navigation.replace("MainStack");
             login(username);
         } else Alert.alert("Lỗi", "Tên đăng nhập hoặc mật khẩu không đúng.");
